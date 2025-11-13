@@ -10,4 +10,10 @@ export default defineNuxtConfig({
     "@nuxt/content",
     "@nuxthub/core",
   ],
+  nitro: {
+    prerender: {
+      crawlLinks: true,
+      routes: ["/"],
+    },
+  },
 });
