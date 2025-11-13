@@ -4,18 +4,9 @@ const route = useRoute();
 // Get the slug from the route params
 const slug = route.params.slug as string;
 
-console.log("Slug from route:", slug);
-
-// Try querying all posts first to see what's available
-const { data: allPosts } = await useAsyncData("all-blogs", () =>
-  queryCollection("blog").all()
-);
-
-console.log("All posts:", allPosts.value);
-
 // Query the specific post by slug
 const { data: post } = await useAsyncData(`blog-${slug}`, () =>
-  queryCollection("blog").path(`/blogs/${slug}`).first()
+  queryCollection("blog").path(`/${slug}`).first()
 );
 
 // Handle 404 if post not found
