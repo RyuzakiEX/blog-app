@@ -24,7 +24,7 @@ useSeoMeta({
 </script>
 
 <template>
-  <UContainer class="py-8 lg:py-16">
+  <UContainer v-if="post" class="py-8 lg:py-16">
     <article class="max-w-4xl mx-auto">
       <!-- Title - Middle aligned -->
       <header class="text-center mb-8">
