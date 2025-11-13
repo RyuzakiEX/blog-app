@@ -9,7 +9,17 @@ export default defineNuxtConfig({
     "@nuxt/ui",
     "@nuxt/content",
     "@nuxthub/core",
+    "nuxt-studio",
   ],
+  studio: {
+    route: "/admin",
+    repository: {
+      provider: "github",
+      owner: "RyuzakiEX",
+      repo: "blog-app",
+      branch: "main",
+    },
+  },
   nitro: {
     prerender: {
       crawlLinks: true,
