@@ -29,7 +29,6 @@ const { data: post } = await useAsyncData(
   }
 );
 
-console.log(post.value);
 useSeoMeta({
   title: post.value?.title,
   description: post.value?.description,
