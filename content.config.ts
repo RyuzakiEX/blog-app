@@ -13,7 +13,7 @@ export default defineContentConfig({
   collections: {
     blog_en: defineCollection({
       type: "page",
-      source: "en/*.md",
+      source: "*.md",
       schema: blogSchema,
     }),
     blog_de: defineCollection({

@@ -11,13 +11,13 @@ const { data: post } = await useAsyncData(
     const collection = ("blog_" + locale.value) as keyof Collections;
 
     // Construct the correct path based on locale
-    const contentPath = locale.value === "de" ? `/de/${slug}` : `/en/${slug}`;
+    const contentPath = locale.value === "de" ? `/de/${slug}` : `/${slug}`;
 
     let content = await queryCollection(collection).path(contentPath).first();
 
-    // Fallback to Swedish (default) if content is missing in English
-    if (!content && locale.value !== "de") {
-      content = await queryCollection("blog_sv" as keyof Collections)
+    // Fallback to English (default) if content is missing in German
+    if (!content && locale.value === "de") {
+      content = await queryCollection("blog_en" as keyof Collections)
         .path(`/${slug}`)
         .first();
     }
