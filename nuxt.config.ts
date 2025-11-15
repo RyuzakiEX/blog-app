@@ -6,11 +6,30 @@ export default defineNuxtConfig({
   modules: [
     "@nuxt/eslint",
     "@nuxt/image",
+    "@nuxtjs/i18n",
     "@nuxt/ui",
     "@nuxt/content",
     "@nuxthub/core",
     "nuxt-studio",
   ],
+  i18n: {
+    locales: [
+      {
+        code: "en",
+        name: "English",
+        file: "en.json",
+      },
+      {
+        code: "de",
+        name: "Deutsch",
+        file: "de.json",
+      },
+    ],
+    langDir: "locales/",
+    defaultLocale: "en",
+    strategy: "prefix_except_default",
+    detectBrowserLanguage: false,
+  },
   studio: {
     route: "/admin",
     repository: {

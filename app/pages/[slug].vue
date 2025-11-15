@@ -1,22 +1,35 @@
 <script setup lang="ts">
+import type { Collections } from "@nuxt/content";
+
 const route = useRoute();
+const { locale } = useI18n();
+const slug = String(route.params.slug);
 
-// Get the slug from the route params
-const slug = route.params.slug as string;
+const { data: post } = await useAsyncData(
+  "post-" + slug,
+  async () => {
+    const collection = ("blog_" + locale.value) as keyof Collections;
 
-// Query the specific post by slug
-const { data: post } = await useAsyncData(`blog-${slug}`, () =>
-  queryCollection("blog").path(`/${slug}`).first()
+    // Construct the correct path based on locale
+    const contentPath = locale.value === "de" ? `/de/${slug}` : `/en/${slug}`;
+
+    let content = await queryCollection(collection).path(contentPath).first();
+
+    // Fallback to Swedish (default) if content is missing in English
+    if (!content && locale.value !== "de") {
+      content = await queryCollection("blog_sv" as keyof Collections)
+        .path(`/${slug}`)
+        .first();
+    }
+
+    return content;
+  },
+  {
+    watch: [locale],
+  }
 );
 
-// Handle 404 if post not found
-if (!post.value) {
-  throw createError({
-    statusCode: 404,
-    message: "Post not found",
-  });
-}
-
+console.log(post.value);
 useSeoMeta({
   title: post.value?.title,
   description: post.value?.description,
