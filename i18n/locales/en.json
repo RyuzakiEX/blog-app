@@ -1,6 +1,7 @@
 {
   "home": {
     "title": "Blogs",
-    "subtitle": "Read our latest articles and updates"
+    "subtitle": "Read our latest articles and updates",
+    "heroButton": "Explore Latest Articles"
   }
 }

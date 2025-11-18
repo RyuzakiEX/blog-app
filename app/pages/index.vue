@@ -36,16 +36,23 @@ const localizedPath = (post: any) => {
 
 <template>
   <UContainer>
-    <div class="py-12">
-      <!-- Header Section -->
-      <div class="mb-12">
-        <h1 class="text-4xl font-bold mb-4">{{ t("home.title") }}</h1>
-        <p class="text-lg text-gray-600 dark:text-gray-400">
-          {{ t("home.subtitle") }}
-        </p>
-      </div>
+    <!-- Hero Section -->
+    <UPageHero
+      :title="t('home.title')"
+      :description="t('home.subtitle')"
+      :links="[
+        {
+          label: t('home.heroButton'),
+          color: 'primary',
+          size: 'xl',
+          to: '#posts',
+        },
+      ]"
+    />
+    <USeparator class="pb-10" />
 
-      <!-- Blog Posts Grid -->
+    <!-- Blog Posts Grid -->
+    <div id="posts">
       <UPageGrid>
         <UBlogPost
           v-for="post in posts"
