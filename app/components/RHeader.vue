@@ -39,8 +39,8 @@ const homeLink = computed(() => {
   <UHeader
     :toggle="false"
     :ui="{
-      container: '!w-full !max-w-full !px-5 lg:!px-10 !mx-0',
-      right: '!mx-0 !px-0',
+      container: 'w-full! max-w-full! px-5! lg:px-10! mx-0!',
+      right: 'mx-0! px-0!',
     }"
   >
     <template #left>
