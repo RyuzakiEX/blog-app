@@ -6,7 +6,7 @@ const { locale } = useI18n();
 const slug = String(route.params.slug);
 
 const { data: post } = await useAsyncData(
-  "post-" + slug,
+  "post-" + slug + "-" + locale.value,
   async () => {
     const collection = ("blog_" + locale.value) as keyof Collections;
 
