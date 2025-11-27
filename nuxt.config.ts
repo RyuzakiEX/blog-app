@@ -34,8 +34,8 @@ export default defineNuxtConfig({
     route: "/admin",
     repository: {
       provider: "github",
-      owner: "RyuDevvs",
-      repo: "org-blog-app",
+      owner: "RyuzakiEX",
+      repo: "blog-app",
       branch: "main",
     },
   },
