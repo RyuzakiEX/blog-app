@@ -65,9 +65,7 @@ useSeoMeta({
         v-if="post.image"
         :src="post.image"
         :alt="post.title"
-        class="w-full rounded-lg mb-8 aspect-video object-cover"
-        width="1200"
-        height="675"
+        class="w-full rounded-lg max-h-content mb-8 object-cover"
         loading="lazy"
       />
 
