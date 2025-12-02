@@ -2,6 +2,9 @@
   "home": {
     "title": "Blogs",
     "subtitle": "Lesen Sie unsere neuesten Artikel und Updates",
-    "heroButton": "Neueste Artikel entdecken"
+    "latestPosts": "Neueste Beiträge",
+    "searchButton": "Beiträge durchsuchen...",
+    "searchPlaceholder": "Blog-Beiträge durchsuchen...",
+    "searchResults": "Blog-Beiträge"
   }
 }
