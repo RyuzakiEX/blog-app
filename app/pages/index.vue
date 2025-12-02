@@ -84,7 +84,6 @@ defineShortcuts({
 
 <template>
   <UContainer>
-    <!-- Enhanced Hero Section with more visual appeal -->
     <UPageHero
       :title="t('home.title')"
       :description="t('home.subtitle')"
@@ -109,7 +108,6 @@ defineShortcuts({
         </UButton>
       </template>
 
-      <!-- Optional: Add a headline badge -->
       <template #headline>
         <UBadge
           color="primary"
@@ -122,14 +120,12 @@ defineShortcuts({
       </template>
     </UPageHero>
 
-    <!-- Add visual separation with gradient -->
     <div class="relative py-8">
       <div
         class="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent"
       />
     </div>
 
-    <!-- Blog Posts Grid with enhanced cards -->
     <UPageGrid v-if="paginatedPosts.length > 0">
       <UBlogPost
         v-for="post in paginatedPosts"
@@ -162,7 +158,7 @@ defineShortcuts({
       <p class="text-muted">Check back soon for new content</p>
     </div>
 
-    <!-- Pagination with better spacing -->
+    <!-- Pagination -->
     <div
       v-if="posts && posts.length > pageSize"
       class="flex justify-center my-12"
@@ -174,7 +170,7 @@ defineShortcuts({
       />
     </div>
 
-    <!-- Enhanced Search Modal -->
+    <!-- Search Modal -->
     <UModal v-model:open="searchModalOpen">
       <template #content>
         <UCommandPalette
