@@ -120,6 +120,8 @@ defineShortcuts({
       </template>
     </UPageHero>
 
+    <USeparator />
+
     <div class="relative py-8">
       <div
         class="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent"
