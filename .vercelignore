@@ -1,0 +1,11 @@
+# .vercelignore
+node_modules
+.nuxt
+.output
+dist
+.env
+.env.*
+*.log
+.DS_Store
+.git
+.cache
