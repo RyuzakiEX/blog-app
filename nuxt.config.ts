@@ -9,8 +9,6 @@ export default defineNuxtConfig({
     "@nuxtjs/i18n",
     "@nuxt/ui",
     "@nuxt/content",
-    "@nuxthub/core",
-    "nuxt-studio",
   ],
   i18n: {
     locales: [
@@ -29,15 +27,6 @@ export default defineNuxtConfig({
     defaultLocale: "en",
     strategy: "prefix_except_default",
     detectBrowserLanguage: false,
-  },
-  studio: {
-    route: "/admin",
-    repository: {
-      provider: "github",
-      owner: "RyuzakiEX",
-      repo: "blog-app",
-      branch: "main",
-    },
   },
   nitro: {
     preset: "vercel",
