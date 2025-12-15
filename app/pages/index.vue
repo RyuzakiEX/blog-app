@@ -24,6 +24,7 @@ const { data: posts } = await useAsyncData(
   },
   {
     watch: [locale],
+    lazy: true,
   }
 );
 
