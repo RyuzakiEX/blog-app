@@ -14,7 +14,7 @@ const { data: posts } = await useAsyncData(
   `blog-posts-${locale.value}`,
   async () => {
     try {
-      return await queryCollection(collectionName.value as any)
+      return queryCollection(collectionName.value as any)
         .order("date", "DESC")
         .all();
     } catch (e) {
@@ -24,7 +24,6 @@ const { data: posts } = await useAsyncData(
   },
   {
     watch: [locale],
-    lazy: true,
   }
 );
 
