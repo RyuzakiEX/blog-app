@@ -6,13 +6,13 @@ const page = ref(1);
 const pageSize = 6;
 const searchModalOpen = ref(false);
 const searchTerm = ref("");
-
+const key = computed(() => `blog-posts-${locale.value}`);
 const collectionName = computed(() =>
   locale.value === "de" ? "blog_de" : "blog_en"
 );
 
 const { data: posts } = await useAsyncData(
-  () => `blog-posts-${locale.value}`,
+  key,
   async () => {
     return await queryCollection(collectionName.value as any)
       .order("date", "DESC")
