@@ -11,7 +11,7 @@ const collectionName = computed(() =>
 );
 
 const { data: posts } = await useAsyncData(
-  `blog-posts-${locale.value}`,
+  () => `blog-posts-${locale.value}`,
   async () => {
     try {
       return queryCollection(collectionName.value as any)
