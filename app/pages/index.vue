@@ -10,12 +10,10 @@ const collectionName = computed(() =>
   locale.value === "de" ? "blog_de" : "blog_en"
 );
 
-const { data: posts } = await useAsyncData(
-  () => `blog-posts-${locale.value}`,
-  () =>
-    queryCollection(collectionName.value as any)
-      .order("date", "DESC")
-      .all()
+const { data: posts } = await useAsyncData(`blog-posts-${locale.value}`, () =>
+  queryCollection(collectionName.value as any)
+    .order("date", "DESC")
+    .all()
 );
 
 // Transform posts into CommandPalette items
