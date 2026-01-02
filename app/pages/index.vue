@@ -41,7 +41,7 @@ const searchGroups = computed(() => {
   ];
 });
 
-// Calculate paginated posts (without search filter for main grid)
+// Calculate paginated posts
 const paginatedPosts = computed(() => {
   const start = (page.value - 1) * pageSize;
   const end = start + pageSize;
@@ -55,7 +55,7 @@ const localizedPath = (post: any) => {
   // Remove ANY existing locale prefix from the path
   cleanPath = cleanPath.replace(/^\/(en|de)(\/|$)/, "/");
 
-  // English = default → no prefix
+  //Default language
   if (locale.value === "en") {
     return cleanPath;
   }
@@ -140,7 +140,7 @@ defineShortcuts({
       />
     </UPageGrid>
 
-    <!-- Enhanced No posts message -->
+    <!-- No posts message -->
     <div v-else class="text-center py-20">
       <div
         class="inline-flex items-center justify-center size-20 rounded-full bg-elevated/50 ring ring-default mb-6"
