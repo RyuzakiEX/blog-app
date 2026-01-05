@@ -15,7 +15,10 @@ const { data: posts, pending } = await useAsyncData(
   () =>
     queryCollection(collectionName.value as any)
       .order("date", "DESC")
-      .all()
+      .all(),
+  {
+    server: false,
+  }
 );
 
 // Transform posts into CommandPalette items
