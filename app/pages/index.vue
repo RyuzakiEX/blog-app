@@ -17,7 +17,7 @@ const { data: posts, pending } = await useAsyncData(
       .order("date", "DESC")
       .all(),
   {
-    server: false,
+    watch: [locale],
   }
 );
 
