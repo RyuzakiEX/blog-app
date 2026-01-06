@@ -9,7 +9,6 @@ export default defineNuxtConfig({
     "@nuxtjs/i18n",
     "@nuxt/ui",
     "@nuxt/content",
-    "@nuxthub/core",
     "nuxt-studio",
   ],
   i18n: {
@@ -39,10 +38,10 @@ export default defineNuxtConfig({
       branch: "main",
     },
   },
-  nitro: {
-    preset: "vercel",
-    prerender: {
-      routes: ["/", "/de"],
-    },
-  },
+  // nitro: {
+  //   preset: "vercel",
+  //   prerender: {
+  //     routes: ["/", "/de"],
+  //   },
+  // },
 });
