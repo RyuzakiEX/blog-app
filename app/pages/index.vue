@@ -60,12 +60,10 @@ const localizedPath = (post: any) => {
   // Remove ANY existing locale prefix from the path
   cleanPath = cleanPath.replace(/^\/(en|de)(\/|$)/, "/");
 
-  //Default language
   if (locale.value === "en") {
     return cleanPath;
   }
 
-  // Other languages → prefix only once
   return `/${locale.value}${cleanPath}`;
 };
 
@@ -81,95 +79,108 @@ defineShortcuts({
 </script>
 
 <template>
+  <!-- Full-width hero section with background decoration -->
+  <div class="relative overflow-hidden">
+    <div class="hero-grid absolute inset-0 pointer-events-none" />
+    <div
+      class="absolute -top-24 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none"
+    />
+    <div
+      class="absolute -bottom-24 left-1/4 w-80 h-80 bg-primary/5 rounded-full blur-3xl pointer-events-none"
+    />
+
+    <UContainer>
+      <UPageHero
+        :title="t('home.title')"
+        :description="t('home.subtitle')"
+        :headline="t('home.latestPosts')"
+      >
+        <template #links>
+          <UButton
+            icon="i-lucide-search"
+            :label="t('home.searchButton') || 'Search posts...'"
+            color="primary"
+            variant="solid"
+            size="xl"
+            @click="searchModalOpen = true"
+          >
+            <template #trailing>
+              <div class="hidden lg:flex items-center gap-0.5">
+                <UKbd value="meta" />
+                <UKbd value="K" />
+              </div>
+            </template>
+          </UButton>
+        </template>
+
+        <template #headline>
+          <UBadge
+            color="primary"
+            variant="soft"
+            size="lg"
+            icon="i-lucide-sparkles"
+          >
+            {{ t("home.latestPosts") }}
+          </UBadge>
+        </template>
+      </UPageHero>
+    </UContainer>
+  </div>
+
   <UContainer>
-    <UPageHero
-      :title="t('home.title')"
-      :description="t('home.subtitle')"
-      :headline="t('home.latestPosts')"
-      class="relative"
-    >
-      <template #links>
-        <UButton
-          icon="i-lucide-search"
-          :label="t('home.searchButton') || 'Search posts...'"
-          color="primary"
-          variant="solid"
-          size="xl"
-          @click="searchModalOpen = true"
-        >
-          <template #trailing>
-            <div class="hidden lg:flex items-center gap-0.5">
-              <UKbd value="meta" />
-              <UKbd value="K" />
-            </div>
-          </template>
-        </UButton>
-      </template>
-
-      <template #headline>
-        <UBadge
-          color="primary"
-          variant="soft"
-          size="lg"
-          icon="i-lucide-sparkles"
-        >
-          {{ t("home.latestPosts") }}
-        </UBadge>
-      </template>
-    </UPageHero>
-
     <USeparator />
 
-    <div class="relative py-8">
-      <div
-        class="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent"
-      />
-    </div>
+    <div class="py-10">
+      <!-- Loading skeleton grid -->
+      <UPageGrid v-if="pending">
+        <div
+          v-for="i in 6"
+          :key="i"
+          class="flex flex-col gap-3 rounded-xl border border-default p-4 bg-elevated/30"
+        >
+          <USkeleton class="h-44 w-full rounded-lg" />
+          <USkeleton class="h-4 w-2/3" />
+          <USkeleton class="h-3 w-full" />
+          <USkeleton class="h-3 w-4/5" />
+          <div class="flex items-center gap-2 mt-1">
+            <USkeleton class="size-6 rounded-full" />
+            <USkeleton class="h-3 w-24" />
+          </div>
+        </div>
+      </UPageGrid>
 
-    <UPageGrid v-if="!pending && paginatedPosts.length > 0">
-      <UBlogPost
-        v-for="post in paginatedPosts"
-        :key="post._id"
-        :title="post.title"
-        :description="post.description"
-        :date="post.date"
-        :image="post.image"
-        :to="localizedPath(post)"
-        :authors="[
-          {
-            name: post.author,
-          },
-        ]"
-        variant="subtle"
-        class="hover:shadow-lg transition-shadow duration-300"
-      />
-    </UPageGrid>
+      <!-- Blog post grid -->
+      <UPageGrid v-else-if="paginatedPosts.length > 0">
+        <UBlogPost
+          v-for="post in paginatedPosts"
+          :key="post._id"
+          :title="post.title"
+          :description="post.description"
+          :date="post.date"
+          :image="post.image"
+          :to="localizedPath(post)"
+          :authors="[{ name: post.author }]"
+          variant="subtle"
+          class="hover:shadow-lg transition-shadow duration-300"
+        />
+      </UPageGrid>
 
-    <!-- Loading state -->
-    <div v-if="pending" class="text-center py-20">
-      <p>Loading posts...</p>
-    </div>
-
-    <!-- No posts message -->
-    <div
-      v-else-if="!pending && paginatedPosts.length === 0"
-      class="text-center py-20"
-    >
-      <div
-        class="inline-flex items-center justify-center size-20 rounded-full bg-elevated/50 ring ring-default mb-6"
-      >
-        <UIcon name="i-lucide-file-x" class="size-10 text-muted" />
+      <!-- Empty state -->
+      <div v-else class="flex flex-col items-center py-24 gap-4 text-center">
+        <div
+          class="inline-flex items-center justify-center size-20 rounded-full bg-elevated/50 ring ring-default"
+        >
+          <UIcon name="i-lucide-file-x" class="size-10 text-muted" />
+        </div>
+        <p class="text-xl font-semibold text-highlighted">No posts available</p>
+        <p class="text-muted">Check back soon for new content</p>
       </div>
-      <p class="text-xl font-semibold text-highlighted mb-2">
-        No posts available
-      </p>
-      <p class="text-muted">Check back soon for new content</p>
     </div>
 
     <!-- Pagination -->
     <div
       v-if="posts && posts.length > pageSize"
-      class="flex justify-center my-12"
+      class="flex justify-center mb-12"
     >
       <UPagination
         v-model:page="page"
@@ -177,40 +188,40 @@ defineShortcuts({
         :total="posts?.length || 0"
       />
     </div>
-
-    <!-- Search Modal -->
-    <UModal v-model:open="searchModalOpen">
-      <template #content>
-        <UCommandPalette
-          v-model:search-term="searchTerm"
-          :groups="searchGroups"
-          :placeholder="t('home.searchPlaceholder') || 'Search blog posts...'"
-          :fuse="{
-            fuseOptions: {
-              keys: ['label', 'suffix'],
-              threshold: 0.3,
-            },
-            resultLimit: 20,
-          }"
-          close
-          class="h-96"
-          @update:open="searchModalOpen = $event"
-        >
-          <template #empty>
-            <div class="flex flex-col items-center justify-center py-12">
-              <div
-                class="inline-flex items-center justify-center size-16 rounded-full bg-elevated/50 ring ring-default mb-4"
-              >
-                <UIcon name="i-lucide-search-x" class="size-8 text-muted" />
-              </div>
-              <p class="text-base font-semibold text-highlighted mb-1">
-                No posts found
-              </p>
-              <p class="text-sm text-muted">Try a different search term</p>
-            </div>
-          </template>
-        </UCommandPalette>
-      </template>
-    </UModal>
   </UContainer>
+
+  <!-- Search Modal -->
+  <UModal v-model:open="searchModalOpen">
+    <template #content>
+      <UCommandPalette
+        v-model:search-term="searchTerm"
+        :groups="searchGroups"
+        :placeholder="t('home.searchPlaceholder') || 'Search blog posts...'"
+        :fuse="{
+          fuseOptions: {
+            keys: ['label', 'suffix'],
+            threshold: 0.3,
+          },
+          resultLimit: 20,
+        }"
+        close
+        class="h-96"
+        @update:open="searchModalOpen = $event"
+      >
+        <template #empty>
+          <div class="flex flex-col items-center justify-center py-12">
+            <div
+              class="inline-flex items-center justify-center size-16 rounded-full bg-elevated/50 ring ring-default mb-4"
+            >
+              <UIcon name="i-lucide-search-x" class="size-8 text-muted" />
+            </div>
+            <p class="text-base font-semibold text-highlighted mb-1">
+              No posts found
+            </p>
+            <p class="text-sm text-muted">Try a different search term</p>
+          </div>
+        </template>
+      </UCommandPalette>
+    </template>
+  </UModal>
 </template>

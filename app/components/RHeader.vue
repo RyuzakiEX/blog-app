@@ -18,16 +18,9 @@ const languages = computed(() => [
 
 const currentLocale = computed(() => {
   if (locale.value === "de") {
-    return {
-      label: "Deutsch",
-      icon: "i-flag-de-1x1",
-    };
+    return { label: "Deutsch", icon: "i-flag-de-1x1" };
   }
-
-  return {
-    label: "English",
-    icon: "i-flag-us-1x1",
-  };
+  return { label: "English", icon: "i-flag-us-1x1" };
 });
 
 const homeLink = computed(() => {
@@ -44,8 +37,22 @@ const homeLink = computed(() => {
     }"
   >
     <template #left>
-      <NuxtLink :to="homeLink">
-        <NuxtImg src="/logo.png" alt="Logo" width="40" height="40" />
+      <NuxtLink :to="homeLink" class="flex items-center gap-3 group">
+        <NuxtImg
+          src="/logo.png"
+          alt="Logo"
+          width="36"
+          height="36"
+          class="rounded-lg"
+        />
+        <div class="hidden sm:flex flex-col leading-tight">
+          <span
+            class="font-bold text-sm text-highlighted tracking-tight group-hover:text-primary transition-colors duration-200"
+          >
+            Jorge Adanza
+          </span>
+          <span class="text-xs text-muted">Tech Blog</span>
+        </div>
       </NuxtLink>
     </template>
 
