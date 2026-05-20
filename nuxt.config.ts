@@ -9,7 +9,6 @@ export default defineNuxtConfig({
     "@nuxtjs/i18n",
     "@nuxt/ui",
     "@nuxt/content",
-    "@nuxthub/core",
     "nuxt-studio",
   ],
   i18n: {

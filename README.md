@@ -10,7 +10,7 @@ A modern, multilingual blog application built with Nuxt 3, featuring content man
 - **Content Editing**: Nuxt Studio Alpha (self-hosted) - Headless CMS for collaborative content editing with live preview
 - **i18n**: @nuxtjs/i18n - Multi-language support (English and German)
 - **Image Optimization**: @nuxt/image
-- **Hosting**: Nuxthub (WIP Migrate to Vercel)
+- **Hosting**: Vercel
 
 ## Setup
 
